@@ -25,10 +25,13 @@ public class BlogService {
     @Autowired
     UserRepository userRepository1;
 
-    public int showBlogs(){
+    public List<Blog> showBlogs(){
         //find all blogs
-        return blogRepository1.findAll().size();
+        return blogRepository1.findAll();
 
+    }
+    public int getAllBlogs(){
+        return blogRepository1.findAll().size();
     }
 
     public void createAndReturnBlog(Integer userId, String title, String content) {
@@ -38,7 +41,7 @@ public class BlogService {
 
         //Updating the userInformation and changing its blogs
 
-        Blog blog = new Blog(title,content);
+        Blog blog = new Blog(title,content,new Date());
         User user = userRepository1.findById(userId).get();
         blog.setUser(user);
         user.getBlogList().add(blog);
@@ -54,8 +57,9 @@ public class BlogService {
 
     public void addImage(Integer blogId, String description, String dimensions){
         //add an image to the blog after creating it
-        Image image = new Image(description,dimensions);
+
         Blog blog = blogRepository1.findById(blogId).get();
+        Image image = new Image(description,dimensions);
         image.setBlog(blog);
         blog.getImageList().add(image);
         blogRepository1.save(blog);

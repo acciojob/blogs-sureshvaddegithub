@@ -19,7 +19,7 @@ public class Blog{
     private String title;
     private String content;
 
-    @CreationTimestamp
+
     private Date pubDate;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)

@@ -8,6 +8,9 @@ import com.driver.repositories.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ImageService {
     @Autowired
@@ -18,8 +21,14 @@ public class ImageService {
     public Image createAndReturn(Blog blog, String description, String dimensions){
         //create an image based on given parameters and add it to the imageList of given blog
         Image image = new Image(description,dimensions);
-        blog.getImageList().add(image);
+
         image.setBlog(blog);
+        List<Image> imagesList =blog.getImageList();
+        if(imagesList == null){
+            imagesList = new ArrayList<>();
+        }
+        imagesList.add(image);
+        blog.setImageList(imagesList);
         imageRepository2.save(image);
         blogRepository.save(blog);
         //ImageResponseDto imageResponseDto = new ImageResponseDto(image.getId(), image.getDescription(), image.getDimensions());
@@ -34,13 +43,13 @@ public class ImageService {
        return imageRepository2.findById(id).get();
     }
 
-    public int countImagesInScreen(int id, String screenDimensions) {
+    public int countImagesInScreen(Image image, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         //In case the image is null, return 0
-        if(imageRepository2.findById(id).get()==null){
+        if(image==null){
             return 0;
         }
-        String s = imageRepository2.findById(id).get().getDimensions();
+        String s = image.getDimensions();
 
         int ans = screenSize(s)/screenSize(screenDimensions);
         return ans;
