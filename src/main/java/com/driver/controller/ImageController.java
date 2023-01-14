@@ -1,7 +1,7 @@
 package com.driver.controller;
 
 import com.driver.RequestDtos.BlogRequestDto;
-import com.driver.ResponseDto.ImageResponseDto;
+
 import com.driver.models.Blog;
 import com.driver.models.Image;
 import com.driver.repositories.ImageRepository;
@@ -20,11 +20,11 @@ public class ImageController {
     private ImageRepository imageRepository;
 
     @PostMapping("/create")
-    public ResponseEntity<ImageResponseDto> createAndReturn(@RequestBody BlogRequestDto blogRequestDto,
+    public ResponseEntity<Image> createAndReturn(@RequestBody Blog blog,
                                                             @RequestParam String description,
                                                             @RequestParam String dimensions) {
-        ImageResponseDto imageResponseDto=imageService.createAndReturn(blogRequestDto,description,dimensions);
-        return new ResponseEntity<>(imageResponseDto, HttpStatus.CREATED);
+        Image image=imageService.createAndReturn(blog,description,dimensions);
+        return new ResponseEntity<>(image, HttpStatus.CREATED);
     }
 
     @GetMapping("/countImagesInScreen/{id}/{screenDimensions}")
@@ -36,6 +36,7 @@ public class ImageController {
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteImage(@PathVariable int id) {
+        imageService.deleteImage(imageRepository.findById(id).get());
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

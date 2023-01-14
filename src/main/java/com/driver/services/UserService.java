@@ -18,8 +18,8 @@ public class UserService {
     @Autowired
     BlogService blogService3;
 
-    public void createUser(UserRequestDto userRequestDto){
-        User user = new User(userRequestDto.getUsername(), userRequestDto.getPassword(), userRequestDto.getFirstName(), userRequestDto.getLastName());
+    public void createUser(User user){
+//        User user = new User(userRequestDto.getUsername(), userRequestDto.getPassword(), userRequestDto.getFirstName(), userRequestDto.getLastName());
         userRepository3.save(user);
     }
 
@@ -27,7 +27,7 @@ public class UserService {
         userRepository3.deleteById(userId);
     }
 
-    public void updateUser(UserUpdateDto userUpdateDto){
+    public void updateUser(User userUpdateDto){
         User user = userRepository3.findById(userUpdateDto.getId()).get();
         user.setUsername(userUpdateDto.getUsername());
         user.setPassword(userUpdateDto.getPassword());

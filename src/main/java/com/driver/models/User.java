@@ -1,6 +1,8 @@
 package com.driver.models;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -17,10 +19,16 @@ import java.util.List;
     private String lastName;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("user")
     private List<Blog> blogList;
 
-
-
+    public User(int id, String username, String password, String firstName, String lastName) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public User(String username, String password, String firstName, String lastName) {
         this.username = username;

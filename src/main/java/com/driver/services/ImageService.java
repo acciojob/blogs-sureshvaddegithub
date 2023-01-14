@@ -1,7 +1,7 @@
 package com.driver.services;
 
-import com.driver.RequestDtos.BlogRequestDto;
-import com.driver.ResponseDto.ImageResponseDto;
+
+
 import com.driver.models.*;
 import com.driver.repositories.BlogRepository;
 import com.driver.repositories.ImageRepository;
@@ -15,16 +15,15 @@ public class ImageService {
     @Autowired
     private BlogRepository blogRepository;
 
-    public ImageResponseDto createAndReturn(BlogRequestDto blogRequestDto, String description, String dimensions){
+    public Image createAndReturn(Blog blog, String description, String dimensions){
         //create an image based on given parameters and add it to the imageList of given blog
         Image image = new Image(description,dimensions);
-        Blog blog = blogRepository.findById(blogRequestDto.getId()).get();
         blog.getImageList().add(image);
         image.setBlog(blog);
         imageRepository2.save(image);
         blogRepository.save(blog);
-        ImageResponseDto imageResponseDto = new ImageResponseDto(image.getId(), image.getDescription(), image.getDimensions());
-        return imageResponseDto;
+        //ImageResponseDto imageResponseDto = new ImageResponseDto(image.getId(), image.getDescription(), image.getDimensions());
+        return image;
     }
 
     public void deleteImage(Image image){
