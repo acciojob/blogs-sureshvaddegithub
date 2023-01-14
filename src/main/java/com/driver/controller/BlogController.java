@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/blogs")
-public class BlogController {
+public class .BlogController {
 
     @Autowired
     BlogService blogService;

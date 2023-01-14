@@ -1,5 +1,6 @@
 package  com.driver.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Blog{
     private Date pubDate;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("blog")
     private List<Image> imageList;
 
     @ManyToOne
@@ -30,6 +32,20 @@ public class Blog{
 
     public Blog(){
 
+    }
+
+    public Blog(int id, String title, String content, Date pubDate, User user) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.pubDate = pubDate;
+        this.user = user;
+    }
+
+    public Blog(String title, String content, Date pubDate) {
+        this.title = title;
+        this.content = content;
+        this.pubDate = pubDate;
     }
 
     public Blog(String title, String content) {
