@@ -17,11 +17,10 @@ import java.util.List;
     private String lastName;
 
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    private List<Blog> listOfBlog;
+    private List<Blog> blogList;
 
-    public List<Blog> getListOfBlog() {
-        return listOfBlog;
-    }
+
+
 
     public User(String username, String password, String firstName, String lastName) {
         this.username = username;
@@ -33,8 +32,12 @@ import java.util.List;
 
     }
 
-    public void setListOfBlog(List<Blog> listOfBlog) {
-        this.listOfBlog = listOfBlog;
+    public List<Blog> getBlogList() {
+        return blogList;
+    }
+
+    public void setBlogList(List<Blog> blogList) {
+        this.blogList = blogList;
     }
 
     public String getUsername() {

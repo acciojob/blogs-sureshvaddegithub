@@ -22,7 +22,7 @@ public class Blog{
     private Date pubDate;
 
     @OneToMany(mappedBy = "blog",cascade = CascadeType.ALL)
-    private List<Image> listOfImages;
+    private List<Image> imageList;
 
     @ManyToOne
     @JoinColumn
@@ -38,12 +38,12 @@ public class Blog{
 
     }
 
-    public List<Image> getListOfImages() {
-        return listOfImages;
+    public List<Image> getImageList() {
+        return imageList;
     }
 
-    public void setListOfImages(List<Image> listOfImages) {
-        this.listOfImages = listOfImages;
+    public void setImageList(List<Image> imageList) {
+        this.imageList = imageList;
     }
 
     public User getUser() {

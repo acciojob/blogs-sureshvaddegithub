@@ -19,7 +19,7 @@ public class ImageService {
         //create an image based on given parameters and add it to the imageList of given blog
         Image image = new Image(description,dimensions);
         Blog blog = blogRepository.findById(blogRequestDto.getId()).get();
-        blog.getListOfImages().add(image);
+        blog.getImageList().add(image);
         image.setBlog(blog);
         imageRepository2.save(image);
         blogRepository.save(blog);
