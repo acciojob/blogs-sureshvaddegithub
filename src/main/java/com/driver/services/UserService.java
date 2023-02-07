@@ -27,13 +27,7 @@ public class UserService {
         userRepository3.deleteById(userId);
     }
 
-    public void updateUser(User userUpdateDto){
-        User user = userRepository3.findById(userUpdateDto.getId()).get();
-        user.setUsername(userUpdateDto.getUsername());
-        user.setPassword(userUpdateDto.getPassword());
-        user.setFirstName(userUpdateDto.getFirstName());
-        user.setLastName(userUpdateDto.getLastName());
-
+    public void updateUser(User user){
         userRepository3.save(user);
     }
 

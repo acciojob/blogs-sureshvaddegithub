@@ -29,7 +29,6 @@ public class ImageService {
         }
         imagesList.add(image);
         blog.setImageList(imagesList);
-        imageRepository2.save(image);
         blogRepository.save(blog);
         //ImageResponseDto imageResponseDto = new ImageResponseDto(image.getId(), image.getDescription(), image.getDimensions());
         return image;
@@ -46,25 +45,18 @@ public class ImageService {
     public int countImagesInScreen(Image image, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
         //In case the image is null, return 0
-        if(image==null){
-            return 0;
-        }
-        String s = image.getDimensions();
+        String imageDimensions = image.getDimensions();
+        String [] arr1= imageDimensions.split("X");
+        String [] arr2= screenDimensions.split("X");
+        int xi = Integer.parseInt(arr1[0]);
+        int yi = Integer.parseInt(arr1[1]);
+        int xs = Integer.parseInt(arr2[0]);
+        int  ys= Integer.parseInt(arr2[1]);
 
-        int ans = screenSize(s)/screenSize(screenDimensions);
-        return ans;
+        int ans;
+        ans = (int) ((int)Math.floor((double) xs/(double) xi)*Math.floor((double) ys/(double)yi));
 
-
-
+      return ans;
     }
-    public int screenSize(String s){
-        int  screenSize = 0;
-        int i = 0;
-        while(i<s.length() && Character.isDigit(s.charAt(i))){
-            screenSize=screenSize*10+s.charAt(i)-'0';
-            i++;
-        }
-        screenSize =screenSize*Integer.parseInt(s.substring(i+1,s.length()));
-        return screenSize;
-    }
+
 }
